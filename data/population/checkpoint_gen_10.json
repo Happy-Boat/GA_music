@@ -1,0 +1,73 @@
+{
+  "generation": 10,
+  "best_fitness": 0.9204550819371232,
+  "average_fitness": 0.9082515513221008,
+  "best_melody": {
+    "notes": [
+      {
+        "pitch": "B4",
+        "duration": 0.75,
+        "start_time": 0
+      },
+      {
+        "pitch": "F#4",
+        "duration": 0.25,
+        "start_time": 0.75
+      },
+      {
+        "pitch": "A#4",
+        "duration": 0.25,
+        "start_time": 0.75
+      },
+      {
+        "pitch": "C#5",
+        "duration": 0.375,
+        "start_time": 1.25
+      },
+      {
+        "pitch": "A4",
+        "duration": 0.125,
+        "start_time": 2.375
+      },
+      {
+        "pitch": "C#4",
+        "duration": 0.75,
+        "start_time": 2.875
+      },
+      {
+        "pitch": "A4",
+        "duration": 0.125,
+        "start_time": 2.375
+      },
+      {
+        "pitch": "F5",
+        "duration": 0.125,
+        "start_time": 2.25
+      },
+      {
+        "pitch": "F5",
+        "duration": 0.125,
+        "start_time": 3.875
+      },
+      {
+        "pitch": "C5",
+        "duration": 0.125,
+        "start_time": 2.875
+      },
+      {
+        "pitch": "G5",
+        "duration": 0.5,
+        "start_time": 3.125
+      },
+      {
+        "pitch": "E5",
+        "duration": 0.25,
+        "start_time": 3.75
+      }
+    ],
+    "time_signature": [
+      4,
+      4
+    ]
+  }
+}
