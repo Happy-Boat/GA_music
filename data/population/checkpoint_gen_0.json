@@ -1,59 +1,41 @@
 {
   "generation": 0,
-  "best_fitness": 0.8308522251301369,
-  "average_fitness": 0.7626121454271185,
+  "best_fitness": 0.7672484798112261,
+  "average_fitness": 0.5377924850436491,
   "best_melody": {
     "notes": [
-      {
-        "pitch": "B4",
-        "duration": 0.75,
-        "start_time": 0
-      },
-      {
-        "pitch": "F#4",
-        "duration": 0.25,
-        "start_time": 0.75
-      },
-      {
-        "pitch": "C4",
-        "duration": 0.25,
-        "start_time": 1.0
-      },
-      {
-        "pitch": "C5",
-        "duration": 0.375,
-        "start_time": 1.25
-      },
-      {
-        "pitch": "A4",
-        "duration": 0.25,
-        "start_time": 1.875
-      },
-      {
-        "pitch": "A4",
-        "duration": 0.125,
-        "start_time": 2.375
-      },
-      {
-        "pitch": "G5",
-        "duration": 0.5,
-        "start_time": 2.625
-      },
-      {
-        "pitch": "D4",
-        "duration": 0.125,
-        "start_time": 3.125
-      },
-      {
-        "pitch": "C#5",
-        "duration": 0.25,
-        "start_time": 3.25
-      },
-      {
-        "pitch": "F5",
-        "duration": 0.125,
-        "start_time": 3.875
-      }
+      20,
+      23,
+      23,
+      3,
+      18,
+      16,
+      21,
+      10,
+      25,
+      4,
+      18,
+      16,
+      12,
+      28,
+      12,
+      20,
+      14,
+      28,
+      19,
+      22,
+      7,
+      2,
+      7,
+      10,
+      22,
+      28,
+      28,
+      0,
+      2,
+      25,
+      26,
+      19
     ],
     "time_signature": [
       4,

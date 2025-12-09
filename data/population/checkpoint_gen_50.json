@@ -1,69 +1,41 @@
 {
   "generation": 50,
-  "best_fitness": 0.9731442869057547,
-  "average_fitness": 0.9280069776914207,
+  "best_fitness": 0.7702451933615475,
+  "average_fitness": 0.4426263014118681,
   "best_melody": {
     "notes": [
-      {
-        "pitch": "C#4",
-        "duration": 1.3403184751347585,
-        "start_time": 0
-      },
-      {
-        "pitch": "F#4",
-        "duration": 0.25,
-        "start_time": 0.75
-      },
-      {
-        "pitch": "A#4",
-        "duration": 0.25,
-        "start_time": 0.75
-      },
-      {
-        "pitch": "G5",
-        "duration": 0.5,
-        "start_time": 0.5903184751347581
-      },
-      {
-        "pitch": "C5",
-        "duration": 0.125,
-        "start_time": 1.215318475134758
-      },
-      {
-        "pitch": "A4",
-        "duration": 0.125,
-        "start_time": 2.375
-      },
-      {
-        "pitch": "A4",
-        "duration": 0.125,
-        "start_time": 2.375
-      },
-      {
-        "pitch": "C#4",
-        "duration": 1.3403184751347585,
-        "start_time": 2.875
-      },
-      {
-        "pitch": "F5",
-        "duration": 0.125,
-        "start_time": 3.875
-      },
-      {
-        "pitch": "C5",
-        "duration": 0.125,
-        "start_time": 2.875
-      },
-      {
-        "pitch": "E5",
-        "duration": 0.25,
-        "start_time": 3.75
-      },
-      {
-        "pitch": "B4",
-        "duration": 0.4373295153849942,
-        "start_time": 3.777988959749764
-      }
+      28,
+      8,
+      28,
+      4,
+      18,
+      3,
+      28,
+      28,
+      28,
+      21,
+      28,
+      4,
+      9,
+      16,
+      19,
+      10,
+      20,
+      28,
+      28,
+      19,
+      9,
+      28,
+      12,
+      28,
+      6,
+      6,
+      25,
+      15,
+      21,
+      27,
+      28,
+      23
     ],
     "time_signature": [
       4,

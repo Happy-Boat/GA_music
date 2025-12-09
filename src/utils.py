@@ -4,6 +4,17 @@
 """
 
 import pretty_midi
+from src.config import *
+
+def choose_by_value(val):
+    # 按照权重随机选取
+    from random import random
+    r = random() * sum(val)
+    s = 0
+    for i in range(len(val)):
+        s += val[i]
+        if s >= r: return i
+    return len(val) - 1
 
 def midi_to_note_name(midi_number):
     """MIDI编号转换为音符名"""
@@ -47,22 +58,30 @@ def parse_time_signature(time_sig_str):
 
 def validate_melody(melody):
     """验证旋律的合法性"""
-    if not melody.notes:
-        return False, "旋律为空"
+
+    if len(melody.notes) != LENGTH:
+        return False, "长度不符"
     
-    # 检查音符是否重叠（简单的检查）
+    # 检查形如 0 - 的非法元素
     for i in range(len(melody.notes) - 1):
-        note1 = melody.notes[i]
-        note2 = melody.notes[i + 1]
-        if note1.start_time + note1.duration > note2.start_time:
-            return False, f"音符{i}和{i+1}重叠"
+        if melody.notes[i] == 0 and melody.notes[i + 1] == PITCH_TYPES + 1:
+            return False, "休止符后延音"
     
-    # 检查是否超出总长度
-    total_length = melody.get_duration()
-    if total_length > melody.total_length:
-        return False, f"旋律长度{total_length:.2f}超过限制{melody.total_length}"
+    # 检查过长延音
+    lim = int(MAX_DURATION / MIN_DURATION)
+    now = 1
+    for i in range(len(melody.notes)):
+        if melody.notes[i] == PITCH_TYPES + 1:
+            now += 1
+        elif melody.notes[i] > 0:
+            now = 1
+        else: now = 0
+        if now > lim:
+            return False, "延音过长"
     
     return True, "旋律有效"
+
+# 下面两个函数并未被引用
 
 def save_population(population, filename):
     """保存种群到文件（简化版，实际项目可能需要序列化）"""
@@ -116,39 +135,3 @@ def load_population(filename):
     
     return population
 
-def generate_random_melody(note_set, num_measures=4, time_signature=(4, 4), min_duration=0.125):
-    """随机生成旋律"""
-    import random
-    from src.representation import Note, Melody
-    
-    melody = Melody(time_signature=time_signature)
-    melody.total_length = num_measures
-    
-    current_time = 0
-    max_time = num_measures
-    
-    while current_time < max_time:
-        # 随机选择音符
-        pitch = random.choice(note_set)
-        
-        # 随机选择时长（避免过长）
-        duration = random.choice([0.125, 0.25, 0.375, 0.5, 0.75])
-        
-        # 确保不超过最大时间
-        if current_time + duration > max_time:
-            duration = max_time - current_time
-        
-        # 创建音符
-        note = Note(pitch, duration, current_time)
-        melody.add_note(note)
-        
-        # 更新当前时间
-        current_time += duration
-        
-        # 随机添加休止符的概率
-        if random.random() < 0.3 and current_time < max_time:
-            rest_duration = random.choice([0.125, 0.25, 0.375])
-            if current_time + rest_duration <= max_time:
-                current_time += rest_duration
-    
-    return melody

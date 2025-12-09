@@ -1,13 +1,33 @@
-Melody (12 notes, 4/4):
-  1: Note(pitch='C#4', duration=1.340, start=0.000)
-  2: Note(pitch='F#4', duration=0.250, start=0.750)
-  3: Note(pitch='A#4', duration=0.250, start=0.750)
-  4: Note(pitch='G5', duration=0.500, start=0.590)
-  5: Note(pitch='C5', duration=0.125, start=1.215)
-  6: Note(pitch='A4', duration=0.125, start=2.375)
-  7: Note(pitch='A4', duration=0.125, start=2.375)
-  8: Note(pitch='C#4', duration=1.340, start=2.875)
-  9: Note(pitch='F5', duration=0.125, start=3.875)
-  10: Note(pitch='C5', duration=0.125, start=2.875)
-  11: Note(pitch='E5', duration=0.250, start=3.750)
-  12: Note(pitch='B4', duration=0.437, start=3.778)
+Melody (32 notes, 4/4):
+  1: 14
+  2: 19
+  3: 7
+  4: 6
+  5: 28
+  6: 7
+  7: 28
+  8: 7
+  9: 28
+  10: 9
+  11: 28
+  12: 11
+  13: 22
+  14: 28
+  15: 22
+  16: 28
+  17: 11
+  18: 3
+  19: 4
+  20: 27
+  21: 6
+  22: 26
+  23: 27
+  24: 28
+  25: 16
+  26: 17
+  27: 5
+  28: 28
+  29: 5
+  30: 28
+  31: 6
+  32: 3

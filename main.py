@@ -7,7 +7,7 @@ import argparse
 import os
 from src.evolution import GeneticAlgorithm
 from src.visualization import plot_fitness_progress, visualize_melody, create_evolution_report
-import config
+import src.config as config
 
 def parse_arguments():
     """解析命令行参数"""
@@ -53,7 +53,7 @@ def main():
     
     # 运行进化
     print(f"开始进化（{config.GENERATIONS}代）...")
-    best_individuals, fitness_history = ga.run(config.GENERATIONS)
+    best_individuals, fitness_history = ga.run()
     
     # 保存结果
     print("保存结果...")
@@ -71,18 +71,18 @@ def main():
     
     # 生成进化报告
     create_evolution_report(ga, args.output)
-    
+
     # 可视化
-    if args.visualize:
-        plot_fitness_progress(fitness_history)
-        visualize_melody(best_melody, "最优旋律")
+    #if args.visualize:
+        # plot_fitness_progress(fitness_history)
+        # visualize_melody(best_melody, "最优旋律")
         
-        # 比较初始和最终最佳旋律
-        if len(best_individuals) > 1:
-            from src.visualization import compare_melodies
-            initial_melody = best_individuals[0].melody
-            final_melody = best_individuals[-1].melody
-            compare_melodies([initial_melody, final_melody], ["初始最佳旋律", "最终最佳旋律"])
+        # # 比较初始和最终最佳旋律
+        # if len(best_individuals) > 1:
+        #     from src.visualization import compare_melodies
+        #     initial_melody = best_individuals[0].melody
+        #     final_melody = best_individuals[-1].melody
+        #     compare_melodies([initial_melody, final_melody], ["初始最佳旋律", "最终最佳旋律"])
     
     print("完成！")
 
