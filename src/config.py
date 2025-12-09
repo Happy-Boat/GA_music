@@ -5,7 +5,7 @@
 
 # 遗传算法参数
 POPULATION_SIZE = 20
-GENERATIONS = 100
+GENERATIONS = 300
 CROSSOVER_RATE = 0.8
 MUTATION_RATE = 0.2
 TRANSFORM_RATE = 0.1
@@ -43,3 +43,8 @@ DURATIONS = [0.125, 0.25, 0.375, 0.5, 0.75, 1.0]
 
 # 和谐音程（以半音数表示）
 CONSONANT_INTERVALS = [0, 3, 4, 5, 7, 8, 9, 12]
+
+# 大小调
+MAJOR = [0, 2, 4, 5, 7, 9, 11]
+MINOR = [0, 2, 3, 5, 7, 8, 10]
+
