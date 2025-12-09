@@ -106,7 +106,8 @@ class GeneticAlgorithm:
                 new_population.add_individual(child1)
             if new_population.size() < POPULATION_SIZE:
                 new_population.add_individual(child2)
-        
+
+        self.population = new_population
         self.record(1)
     
     def run(self):
