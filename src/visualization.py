@@ -2,10 +2,54 @@
 """
 可视化功能
 """
-
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+import utils
+matplotlib.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文字体为黑体
+matplotlib.rcParams['axes.unicode_minus'] = False    # 正确显示负号
 
+def get_interval_array(melody):
+    """获取旋律的音程数组（忽略休止符）"""
+    intervals = []
+    notes = melody.notes
+    for i in range(len(notes) - 1):
+        current_note = notes[i]
+        next_note = notes[i + 1]
+        #跳过休止符
+        if current_note > 0 and next_note > 0:
+            interval = next_note - current_note
+            intervals.append(interval)
+    
+    return intervals
+
+def extract_all_melody_features(population):
+    """提取所有melody特征向量"""
+    feature_list = []
+    for i, individual in enumerate(population.inviduals):
+        melody = individual.melody
+        average_pitch = np.mean(melody)
+        std_pitch = np.std(melody,ddof=0)
+        intervals = get_interval_array(melody)
+        average_interval = np.mean(intervals)
+        std_interval = np.std(intervals)
+        changes_count = 0
+        if len(melody.notes) >= 3:#至少三个轮廓才有变化
+            for j in range(2,len(melody.notes)):
+                prev2, prev1, curr = melody.notes[j-2], melody.notes[j-1], melody.notes[j]
+                dir1 = 1 if prev1 > prev2 else (-1 if prev1 < prev2 else 0)
+                dir2 = 1 if curr > prev1 else (-1 if curr < prev1 else 0)
+                change = 1 if dir1 != dir2 else 0
+                changes_count += change
+        features = [
+            average_pitch,
+            std_pitch,
+            average_interval,
+            std_interval,
+            changes_count
+        ]
+        feature_list.append(features)
+    return feature_list
 def plot_fitness_progress(fitness_history):
     """绘制适应度进展图"""
     plt.figure(figsize=(10, 6))
@@ -34,7 +78,44 @@ def plot_fitness_progress(fitness_history):
 def plot_population_diversity(population_history):
     """绘制种群多样性图（简化版）"""
     # 这里我们可以计算每代种群中旋律的差异
-    pass
+    #提取所有旋律编码的特征向量[平均音高，音高标准差，平均音程，音程标准差，轮廓变化率]，计算距离平均值
+    avg_distances=[]
+    for gen in range(0,290,300):
+        if gen > 290:
+            break
+        population = utils.load_population("population/checkpoint_gen_{gen}.json")
+        feature_list = extract_all_melody_features(population)
+        n = X.shape[0]#？
+        X = np.array(feature_list)
+        differences = X[:, np.newaxis, :] - X[np.newaxis, :, :]
+        squared_diffs = differences ** 2
+        distances = np.sqrt(np.sum(squared_diffs, axis=2))
+    
+        # 取上三角平均（不包括对角线）
+        avg_distance = np.mean(distances[np.triu_indices(n, k=1)])
+        avg_distances.append(avg_distance)
+
+    plt.figure(figsize=(10, 6))
+    generations = range(len(avg_distances))
+    # 绘制主曲线
+    plt.plot(generations, avg_distances, 'b-', linewidth=2, label='种群多样性')
+    
+    # 添加趋势线
+    if len(avg_distances) > 1:
+        z = np.polyfit(generations, avg_distances, 3)
+        p = np.poly1d(z)
+        plt.plot(generations, p(generations), "r--", alpha=0.5, label='趋势线')
+    
+    plt.xlabel('进化代数')
+    plt.ylabel('特征向量平均欧氏距离')
+    plt.title('种群多样性演化过程')
+    plt.grid(True, alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+    
+    # 保存图像
+    plt.savefig('results/diversity_progress.png', dpi=150)
+    plt.show()
 
 def visualize_melody(melody, title=None):
     """可视化旋律（钢琴卷帘）"""
