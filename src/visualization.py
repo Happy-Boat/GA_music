@@ -5,7 +5,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import utils
+from src.utils import *
 matplotlib.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文字体为黑体
 matplotlib.rcParams['axes.unicode_minus'] = False    # 正确显示负号
 
@@ -84,7 +84,7 @@ def plot_population_diversity(population_history):
     for gen in range(0,290,10):
         if gen > 290:
             break
-        population = utils.load_population("population/checkpoint_gen_{gen}.json")
+        population = load_population("population/checkpoint_gen_{gen}.json")
         feature_list = extract_all_melody_features(population)
         n = X.shape[0]
         X = np.array(feature_list)
@@ -121,12 +121,12 @@ def plot_population_diversity(population_history):
 def visualize_melody(melody, title=None):
     """可视化旋律（钢琴卷帘）"""
     
-    from config import NOTES
+    from src.config import NOTES
     # 创建图形
     fig, axes = plt.subplots(3, 1, figsize=(16, 12), 
                            gridspec_kw={'height_ratios': [3, 2, 2]})
-    
-    pitches = np.array(melody)
+    notes=melody.notes
+    pitches = np.array(notes)
     time_points = np.arange(len(pitches))
     
     # 1. 主图：钢琴卷帘谱（无间隔版本）
