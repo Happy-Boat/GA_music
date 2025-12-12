@@ -58,7 +58,6 @@ def main():
     # 保存结果
     print("保存结果...")
     best_melody = ga.population.get_fittest().melody
-    
     # 保存MIDI文件
     midi_path = os.path.join(args.output, "best_melody.mid")
     best_melody.to_midi(midi_path)
@@ -71,18 +70,19 @@ def main():
     
     # 生成进化报告
     create_evolution_report(ga, args.output)
-
+    args.visualize = True
     # 可视化
-    #if args.visualize:
-        # plot_fitness_progress(fitness_history)
-        # visualize_melody(best_melody, "最优旋律")
+    if args.visualize:
+        plot_fitness_progress(fitness_history)
+    
+        visualize_melody(best_melody, "最优旋律")
         
-        # # 比较初始和最终最佳旋律
-        # if len(best_individuals) > 1:
-        #     from src.visualization import compare_melodies
-        #     initial_melody = best_individuals[0].melody
-        #     final_melody = best_individuals[-1].melody
-        #     compare_melodies([initial_melody, final_melody], ["初始最佳旋律", "最终最佳旋律"])
+        # 比较初始和最终最佳旋律
+        if len(best_individuals) > 1:
+            from src.visualization import compare_melodies
+            initial_melody = best_individuals[0].melody
+            final_melody = best_individuals[-1].melody
+            compare_melodies(initial_melody, final_melody, "初始最佳旋律", "最终最佳旋律")
     
     print("完成！")
 

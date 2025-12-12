@@ -4,6 +4,7 @@
 """
 import matplotlib
 import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
 import numpy as np
 from src.utils import *
 matplotlib.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文字体为黑体
@@ -372,40 +373,193 @@ def create_evolution_report(ga_instance, output_dir):
     
     print(f"报告已保存到: {report_file}")
 
-def compare_melodies(melodies, titles=None):
-    """比较多个旋律"""
-    if titles is None:
-        titles = [f"旋律 {i+1}" for i in range(len(melodies))]
+def compare_melodies(melody_1, melody_2, name1="旋律1", name2="旋律2", 
+                                           title="两个旋律对比 - 钢琴卷帘谱", save_path=None):
+    """
+    并排可视化两个旋律数组，加上音级音名标注，横坐标延长
     
-    fig, axes = plt.subplots(len(melodies), 1, figsize=(12, 4 * len(melodies)))
+    参数:
+        melody1: 第一个旋律数组，长度32，0为休止，28为延长音
+        melody2: 第二个旋律数组，长度32，0为休止，28为延长音
+        name1: 第一个旋律的名称
+        name2: 第二个旋律的名称
+        title: 图表标题
+        save_path: 图片保存路径
+    """
+    melody1 = melody_1.notes
+    melody2 = melody_2.notes
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
     
-    if len(melodies) == 1:
-        axes = [axes]
+    # 为两个子图设置统一的颜色映射
+    cmap = plt.cm.get_cmap('viridis')
     
-    for idx, (melody, title) in enumerate(zip(melodies, titles)):
-        ax = axes[idx]
+    # 处理第一个旋律
+    pitches1 = np.array(melody1)
+    notes1 = []
+    max_end1 = 0  # 记录第一个旋律的最大结束位置
+    
+    i = 0
+    while i < len(pitches1):
+        if pitches1[i] == 0:
+            i += 1
+        elif pitches1[i] == 28:
+            j = i - 1
+            while j >= 0 and pitches1[j] in [0, 28]:
+                j -= 1
+            if j >= 0 and notes1:
+                for note_idx in range(len(notes1)-1, -1, -1):
+                    if notes1[note_idx][0] <= j <= notes1[note_idx][0] + notes1[note_idx][2] - 1:
+                        notes1[note_idx] = (notes1[note_idx][0], notes1[note_idx][1], notes1[note_idx][2] + 1)
+                        max_end1 = max(max_end1, notes1[note_idx][0] + notes1[note_idx][2])
+                        break
+            i += 1
+        else:
+            start = i
+            pitch_val = pitches1[i]
+            duration = 1
+            i += 1
+            while i < len(pitches1) and pitches1[i] == 28:
+                duration += 1
+                i += 1
+            notes1.append((start, pitch_val, duration))
+            max_end1 = max(max_end1, start + duration)
+    
+    # 处理第二个旋律
+    pitches2 = np.array(melody2)
+    notes2 = []
+    max_end2 = 0  # 记录第二个旋律的最大结束位置
+    
+    i = 0
+    while i < len(pitches2):
+        if pitches2[i] == 0:
+            i += 1
+        elif pitches2[i] == 28:
+            j = i - 1
+            while j >= 0 and pitches2[j] in [0, 28]:
+                j -= 1
+            if j >= 0 and notes2:
+                for note_idx in range(len(notes2)-1, -1, -1):
+                    if notes2[note_idx][0] <= j <= notes2[note_idx][0] + notes2[note_idx][2] - 1:
+                        notes2[note_idx] = (notes2[note_idx][0], notes2[note_idx][1], notes2[note_idx][2] + 1)
+                        max_end2 = max(max_end2, notes2[note_idx][0] + notes2[note_idx][2])
+                        break
+            i += 1
+        else:
+            start = i
+            pitch_val = pitches2[i]
+            duration = 1
+            i += 1
+            while i < len(pitches2) and pitches2[i] == 28:
+                duration += 1
+                i += 1
+            notes2.append((start, pitch_val, duration))
+            max_end2 = max(max_end2, start + duration)
+    
+    # 计算横坐标最大范围，确保所有音符都能完全显示
+    x_max1 = max(31.5, max_end1 + 1.0)  # 至少到31.5，如果音符更长则延长
+    x_max2 = max(31.5, max_end2 + 1.0)
+    
+    # 绘制第一个旋律
+    for start, pitch, duration in notes1:
+        color = cmap((pitch - 1) / 26)
+        rect = Rectangle((start, pitch - 0.4), duration, 0.8,
+                        facecolor=color, edgecolor='black',
+                        linewidth=1.5, alpha=0.8)
+        ax1.add_patch(rect)
         
-        # 绘制每个音符
-        for i, note in enumerate(melody.notes):
-            from src.utils import note_name_to_midi
-            pitch = note_name_to_midi(note.pitch)
-            
-            rect = plt.Rectangle(
-                (note.start_time, pitch - 0.4),
-                note.duration,
-                0.8,
-                facecolor=plt.cm.tab20(idx / len(melodies)),
-                edgecolor='black',
-                alpha=0.7
-            )
-            ax.add_patch(rect)
-        
-        ax.set_title(title)
-        ax.set_xlabel('时间（小节）')
-        ax.set_ylabel('音高')
-        ax.set_xlim(0, max(m.total_length for m in melodies))
-        ax.grid(True, alpha=0.3)
+        # 在音符上标注音级音名
+        ax1.text(start + duration/2,pitch, NOTES[pitch - 1],
+                ha='center', va='center', fontsize=10, fontweight='bold',
+                color='white' if pitch < 14 else 'black')
     
-    plt.tight_layout()
-    plt.savefig('results/melody_comparison.png', dpi=150)
+    # 标记休止符
+    for i in range(len(pitches1)):
+        if pitches1[i] == 0:
+            ax1.scatter(i + 0.5, 14, color='gray', marker='x', 
+                       s=80, linewidths=2.5, zorder=3, alpha=0.8)
+    
+    # 绘制第二个旋律
+    for start, pitch, duration in notes2:
+        color = cmap((pitch - 1) / 26)
+        rect = Rectangle((start, pitch - 0.4), duration, 0.8,
+                        facecolor=color, edgecolor='black',
+                        linewidth=1.5, alpha=0.8)
+        ax2.add_patch(rect)
+        
+        # 在音符上标注音级音名
+        ax2.text(start + duration/2, pitch, NOTES[pitch - 1],
+                ha='center', va='center', fontsize=10, fontweight='bold',
+                color='white' if pitch < 14 else 'black')
+    
+    # 设置第一个子图属性
+    ax1.set_xlabel('时间位置', fontsize=12, fontweight='bold')
+    ax1.set_ylabel('音高值', fontsize=12, fontweight='bold')
+    ax1.set_title(f'{name1}', fontsize=14, fontweight='bold', pad=10)
+    ax1.set_xlim(-1.5, x_max1)  # 延长横坐标范围
+    ax1.set_ylim(0.5, 27.5)
+    ax1.grid(True, alpha=0.3, linestyle='--')
+    
+    # 设置第二个子图属性
+    ax2.set_xlabel('时间位置', fontsize=12, fontweight='bold')
+    ax2.set_ylabel('音高值', fontsize=12, fontweight='bold')
+    ax2.set_title(f'{name2}', fontsize=14, fontweight='bold', pad=10)
+    ax2.set_xlim(-1.5, x_max2)  # 延长横坐标范围
+    ax2.set_ylim(0.5, 27.5)
+    ax2.grid(True, alpha=0.3, linestyle='--')
+    
+    # 添加垂直参考线（小节线） - 扩展到最大范围
+    max_x_ticks = max(x_max1, x_max2)
+    for x in range(0, int(max_x_ticks) + 4, 4):
+        ax1.axvline(x=x-0.5, color='blue', alpha=0.2, linestyle='--', linewidth=1)
+        ax2.axvline(x=x-0.5, color='blue', alpha=0.2, linestyle='--', linewidth=1)
+    
+    # 在纵坐标上添加所有音级标注（1-27）
+    y_ticks = list(range(1, 28))
+    y_tick_labels = [str(i) for i in range(1, 28)]
+    
+    ax1.set_yticks(y_ticks)
+    ax1.set_yticklabels(y_tick_labels, fontsize=10)
+    ax2.set_yticks(y_ticks)
+    ax2.set_yticklabels(y_tick_labels, fontsize=10)
+    
+    # 添加横坐标刻度（每2个位置标记一次）
+    ax1.set_xticks(range(0, int(x_max1) + 1, 2))
+    ax2.set_xticks(range(0, int(x_max2) + 1, 2))
+    
+    # 添加统计信息文本
+    stats1 = f"音符: {len(notes1)}  休止: {np.sum(pitches1 == 0)}  延长: {np.sum(pitches1 == 28)}"
+    stats2 = f"音符: {len(notes2)}  休止: {np.sum(pitches2 == 0)}  延长: {np.sum(pitches2 == 28)}"
+    
+    ax1.text(0.02, 0.97, stats1, transform=ax1.transAxes, fontsize=10, 
+             verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.7))
+    ax2.text(0.02, 0.97, stats2, transform=ax2.transAxes, fontsize=10,
+             verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.7))
+    
+    # 添加图例说明
+    legend_elements = [
+        Rectangle((0, 0), 1, 1, facecolor='skyblue', edgecolor='black', alpha=0.8, label='音符'),
+        plt.Line2D([0], [0], marker='x', color='gray', markersize=10, 
+                  label='休止符', linewidth=0)
+    ]
+    ax1.legend(handles=legend_elements, loc='upper right', fontsize=9)
+    
+    # 设置总标题
+    fig.suptitle(title, fontsize=16, fontweight='bold', y=0.98)
+    
+    # 调整布局
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+    
+    # 添加颜色条
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=1, vmax=27))
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=[ax1, ax2], orientation='vertical', pad=0.02, aspect=30)
+    cbar.set_label('音高值', fontsize=11)
+    cbar.set_ticks(range(1, 28, 2))
+    cbar.set_ticklabels([str(i) for i in range(1, 28, 2)])
+    
+    # 保存图片
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"对比图已保存到: {save_path}")
+    
     plt.show()
