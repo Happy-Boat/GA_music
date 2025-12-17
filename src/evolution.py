@@ -11,6 +11,7 @@ from src.genetic_operations import selection, crossover, mutation
 from src.fitness import calculate_fitness, dynamic_fitness_adjustment
 from src.representation import Population, Melody, Individual
 from src.music_operations import apply_musical_transformation
+from src.visualization import current_time
 
 class GeneticAlgorithm:
     """遗传算法主类"""
@@ -131,7 +132,7 @@ class GeneticAlgorithm:
         import os
         import json
         
-        checkpoint_dir = 'data/population'
+        checkpoint_dir = f'data/outputs/{current_time}/population'
         os.makedirs(checkpoint_dir, exist_ok=True)
         
         checkpoint_file = os.path.join(checkpoint_dir, f'checkpoint_gen_{generation}.json')

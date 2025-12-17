@@ -3,12 +3,15 @@
 Visualization functions
 """
 import matplotlib
+import datetime
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import numpy as np
 from src.utils import *
 matplotlib.rcParams['font.sans-serif'] = ['SimHei']  # Set Chinese font to Heiti
 matplotlib.rcParams['axes.unicode_minus'] = False    # Correctly display negative signs
+
+current_time = datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S")
 
 def get_interval_array(melody):
     """Get the interval array of the melody (ignoring rests)"""
@@ -75,7 +78,7 @@ def plot_fitness_progress(fitness_history):
     plt.tight_layout()
     
     # Save image
-    plt.savefig('data/outputs/fitness_progress.png', dpi=150)
+    plt.savefig(f'data/outputs/{current_time}/fitness_progress.png', dpi=150)
     plt.show()
 
 def plot_population_diversity(population_history):
@@ -86,7 +89,7 @@ def plot_population_diversity(population_history):
     for gen in range(0, 290, 10):
         if gen > 290:
             break
-        population = load_population(f"population/checkpoint_gen_{gen}.json")
+        population = load_population(f"{current_time}/data/outputs/population/checkpoint_gen_{gen}.json")
         feature_list = extract_all_melody_features(population)
         X = np.array(feature_list)
         n = X.shape[0]
@@ -117,7 +120,7 @@ def plot_population_diversity(population_history):
     plt.tight_layout()
     
     # Save image
-    plt.savefig('data/outputs/diversity_progress.png', dpi=150)
+    plt.savefig(f'{current_time}/data/outputs/diversity_progress.png', dpi=150)
     plt.show()
 
 def visualize_melody(melody, title=None):
@@ -132,6 +135,7 @@ def visualize_melody(melody, title=None):
     time_points = np.arange(len(pitches))
     
     # 1. Main plot: Piano roll 
+    ax1 = axes[0]
     # Analyze note sequence
     notes = []  # (start position, pitch, duration, contains sustain)
     i = 0

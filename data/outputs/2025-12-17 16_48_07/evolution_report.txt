@@ -1,0 +1,344 @@
+Genetic Algorithm Music Composition Evolution Report
+==================================================
+
+Total Generations: 300
+Final Average Fitness: 16.265
+Final Best Fitness: 18.716
+
+Fitness History:
+  Generation 0: 2.685
+  Generation 1: 5.087
+  Generation 2: 5.038
+  Generation 3: 5.206
+  Generation 4: 5.450
+  Generation 5: 5.540
+  Generation 6: 5.497
+  Generation 7: 5.678
+  Generation 8: 5.606
+  Generation 9: 5.760
+  Generation 10: 5.918
+  Generation 11: 5.908
+  Generation 12: 5.908
+  Generation 13: 6.041
+  Generation 14: 5.987
+  Generation 15: 6.105
+  Generation 16: 6.144
+  Generation 17: 6.014
+  Generation 18: 5.837
+  Generation 19: 6.286
+  Generation 20: 6.386
+  Generation 21: 6.271
+  Generation 22: 6.134
+  Generation 23: 6.134
+  Generation 24: 6.237
+  Generation 25: 6.473
+  Generation 26: 6.965
+  Generation 27: 6.810
+  Generation 28: 6.844
+  Generation 29: 7.340
+  Generation 30: 7.082
+  Generation 31: 6.840
+  Generation 32: 7.051
+  Generation 33: 7.218
+  Generation 34: 6.862
+  Generation 35: 6.670
+  Generation 36: 7.408
+  Generation 37: 7.106
+  Generation 38: 7.340
+  Generation 39: 7.559
+  Generation 40: 8.050
+  Generation 41: 8.011
+  Generation 42: 8.181
+  Generation 43: 8.506
+  Generation 44: 8.100
+  Generation 45: 7.343
+  Generation 46: 7.729
+  Generation 47: 7.644
+  Generation 48: 7.957
+  Generation 49: 7.573
+  Generation 50: 7.337
+  Generation 51: 7.159
+  Generation 52: 7.671
+  Generation 53: 7.971
+  Generation 54: 8.176
+  Generation 55: 7.183
+  Generation 56: 7.348
+  Generation 57: 6.933
+  Generation 58: 7.478
+  Generation 59: 7.848
+  Generation 60: 8.642
+  Generation 61: 8.869
+  Generation 62: 8.758
+  Generation 63: 8.490
+  Generation 64: 8.708
+  Generation 65: 8.252
+  Generation 66: 7.803
+  Generation 67: 7.264
+  Generation 68: 6.997
+  Generation 69: 7.727
+  Generation 70: 8.695
+  Generation 71: 8.888
+  Generation 72: 8.815
+  Generation 73: 8.107
+  Generation 74: 8.280
+  Generation 75: 8.241
+  Generation 76: 8.480
+  Generation 77: 8.511
+  Generation 78: 8.763
+  Generation 79: 8.610
+  Generation 80: 8.452
+  Generation 81: 8.003
+  Generation 82: 8.403
+  Generation 83: 8.926
+  Generation 84: 9.197
+  Generation 85: 8.974
+  Generation 86: 8.314
+  Generation 87: 8.342
+  Generation 88: 8.934
+  Generation 89: 8.620
+  Generation 90: 8.490
+  Generation 91: 8.127
+  Generation 92: 8.178
+  Generation 93: 8.421
+  Generation 94: 8.600
+  Generation 95: 8.409
+  Generation 96: 8.800
+  Generation 97: 8.654
+  Generation 98: 8.779
+  Generation 99: 8.814
+  Generation 100: 8.669
+  Generation 101: 9.116
+  Generation 102: 9.245
+  Generation 103: 9.372
+  Generation 104: 9.032
+  Generation 105: 9.191
+  Generation 106: 8.908
+  Generation 107: 8.562
+  Generation 108: 8.835
+  Generation 109: 8.585
+  Generation 110: 8.404
+  Generation 111: 8.022
+  Generation 112: 7.027
+  Generation 113: 7.695
+  Generation 114: 7.778
+  Generation 115: 8.233
+  Generation 116: 8.586
+  Generation 117: 8.677
+  Generation 118: 8.500
+  Generation 119: 8.459
+  Generation 120: 8.169
+  Generation 121: 8.787
+  Generation 122: 8.998
+  Generation 123: 9.048
+  Generation 124: 9.398
+  Generation 125: 9.579
+  Generation 126: 9.429
+  Generation 127: 9.196
+  Generation 128: 8.120
+  Generation 129: 9.316
+  Generation 130: 8.734
+  Generation 131: 8.236
+  Generation 132: 7.975
+  Generation 133: 8.061
+  Generation 134: 8.478
+  Generation 135: 8.616
+  Generation 136: 8.004
+  Generation 137: 8.246
+  Generation 138: 8.158
+  Generation 139: 8.237
+  Generation 140: 9.300
+  Generation 141: 9.421
+  Generation 142: 9.283
+  Generation 143: 9.089
+  Generation 144: 8.975
+  Generation 145: 9.359
+  Generation 146: 9.034
+  Generation 147: 8.674
+  Generation 148: 9.173
+  Generation 149: 9.482
+  Generation 150: 8.520
+  Generation 151: 9.537
+  Generation 152: 8.979
+  Generation 153: 8.196
+  Generation 154: 8.502
+  Generation 155: 8.307
+  Generation 156: 9.688
+  Generation 157: 9.249
+  Generation 158: 9.896
+  Generation 159: 10.367
+  Generation 160: 11.723
+  Generation 161: 11.873
+  Generation 162: 12.818
+  Generation 163: 12.360
+  Generation 164: 11.637
+  Generation 165: 13.158
+  Generation 166: 13.924
+  Generation 167: 13.608
+  Generation 168: 12.560
+  Generation 169: 12.471
+  Generation 170: 13.276
+  Generation 171: 13.494
+  Generation 172: 13.257
+  Generation 173: 14.528
+  Generation 174: 12.521
+  Generation 175: 14.686
+  Generation 176: 14.784
+  Generation 177: 13.029
+  Generation 178: 14.968
+  Generation 179: 15.331
+  Generation 180: 14.684
+  Generation 181: 17.326
+  Generation 182: 16.778
+  Generation 183: 15.807
+  Generation 184: 15.626
+  Generation 185: 14.727
+  Generation 186: 14.874
+  Generation 187: 15.885
+  Generation 188: 16.324
+  Generation 189: 17.152
+  Generation 190: 17.346
+  Generation 191: 16.890
+  Generation 192: 16.022
+  Generation 193: 15.853
+  Generation 194: 17.055
+  Generation 195: 17.591
+  Generation 196: 17.246
+  Generation 197: 16.171
+  Generation 198: 13.780
+  Generation 199: 14.028
+  Generation 200: 14.128
+  Generation 201: 16.192
+  Generation 202: 16.566
+  Generation 203: 14.886
+  Generation 204: 15.898
+  Generation 205: 15.394
+  Generation 206: 14.995
+  Generation 207: 15.405
+  Generation 208: 17.489
+  Generation 209: 17.313
+  Generation 210: 17.859
+  Generation 211: 15.853
+  Generation 212: 16.165
+  Generation 213: 16.424
+  Generation 214: 16.284
+  Generation 215: 16.770
+  Generation 216: 16.113
+  Generation 217: 16.631
+  Generation 218: 16.988
+  Generation 219: 17.187
+  Generation 220: 18.569
+  Generation 221: 17.387
+  Generation 222: 18.418
+  Generation 223: 17.459
+  Generation 224: 15.705
+  Generation 225: 16.845
+  Generation 226: 17.883
+  Generation 227: 18.332
+  Generation 228: 18.037
+  Generation 229: 17.880
+  Generation 230: 17.436
+  Generation 231: 17.459
+  Generation 232: 16.666
+  Generation 233: 16.992
+  Generation 234: 16.434
+  Generation 235: 14.742
+  Generation 236: 15.579
+  Generation 237: 16.808
+  Generation 238: 16.220
+  Generation 239: 17.450
+  Generation 240: 17.684
+  Generation 241: 17.815
+  Generation 242: 14.795
+  Generation 243: 15.670
+  Generation 244: 13.860
+  Generation 245: 13.428
+  Generation 246: 13.361
+  Generation 247: 14.131
+  Generation 248: 14.147
+  Generation 249: 15.057
+  Generation 250: 12.406
+  Generation 251: 13.944
+  Generation 252: 16.650
+  Generation 253: 17.188
+  Generation 254: 16.662
+  Generation 255: 17.472
+  Generation 256: 16.725
+  Generation 257: 16.788
+  Generation 258: 15.610
+  Generation 259: 17.256
+  Generation 260: 14.994
+  Generation 261: 14.847
+  Generation 262: 16.179
+  Generation 263: 16.852
+  Generation 264: 14.869
+  Generation 265: 16.151
+  Generation 266: 16.824
+  Generation 267: 15.946
+  Generation 268: 15.382
+  Generation 269: 14.551
+  Generation 270: 17.365
+  Generation 271: 17.817
+  Generation 272: 17.550
+  Generation 273: 17.608
+  Generation 274: 17.231
+  Generation 275: 15.918
+  Generation 276: 16.704
+  Generation 277: 14.689
+  Generation 278: 16.520
+  Generation 279: 18.511
+  Generation 280: 17.952
+  Generation 281: 17.419
+  Generation 282: 16.986
+  Generation 283: 17.383
+  Generation 284: 18.035
+  Generation 285: 16.944
+  Generation 286: 15.709
+  Generation 287: 16.075
+  Generation 288: 16.837
+  Generation 289: 16.680
+  Generation 290: 17.057
+  Generation 291: 17.172
+  Generation 292: 16.557
+  Generation 293: 15.707
+  Generation 294: 16.436
+  Generation 295: 15.894
+  Generation 296: 16.011
+  Generation 297: 16.692
+  Generation 298: 17.019
+  Generation 299: 16.428
+  Generation 300: 16.265
+
+Best Melody Information:
+Melody (32 notes, 4/4):
+  1: 8
+  2: 8
+  3: 15
+  4: 24
+  5: 27
+  6: 15
+  7: 24
+  8: 17
+  9: 28
+  10: 28
+  11: 28
+  12: 28
+  13: 20
+  14: 0
+  15: 12
+  16: 4
+  17: 4
+  18: 12
+  19: 0
+  20: 20
+  21: 17
+  22: 28
+  23: 28
+  24: 28
+  25: 28
+  26: 24
+  27: 27
+  28: 0
+  29: 24
+  30: 15
+  31: 8
+  32: 8

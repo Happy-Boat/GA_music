@@ -5,9 +5,12 @@
 
 import argparse
 import os
+import datetime
 from src.evolution import GeneticAlgorithm
 from src.visualization import plot_fitness_progress, visualize_melody, create_evolution_report
 import src.config as config
+
+from src.visualization import current_time
 
 def parse_arguments():
     """解析命令行参数"""
@@ -35,7 +38,7 @@ def main():
     
     # 创建输出目录
     os.makedirs(args.output, exist_ok=True)
-    os.makedirs('data/population', exist_ok=True)
+    os.makedirs(f'data/outputs/{current_time}/population', exist_ok=True)
     os.makedirs('data/input_midi', exist_ok=True)
     
     # 更新配置
@@ -59,17 +62,19 @@ def main():
     print("保存结果...")
     best_melody = ga.population.get_fittest().melody
     # 保存MIDI文件
-    midi_path = os.path.join(args.output, "best_melody.mid")
+    midi_dir = os.path.join('data', 'outputs', current_time)  
+    midi_path = os.path.join(midi_dir, 'best_melody.mid')
+    os.makedirs(midi_dir, exist_ok=True)
     best_melody.to_midi(midi_path)
     print(f"最佳旋律已保存为MIDI: {midi_path}")
     
     # 保存旋律文本
-    txt_path = os.path.join(args.output, "best_melody.txt")
+    txt_path = os.path.join(args.output, f"{current_time}/best_melody.txt")
     with open(txt_path, 'w') as f:
         f.write(best_melody.to_string())
     
     # 生成进化报告
-    create_evolution_report(ga, args.output)
+    create_evolution_report(ga, midi_dir)
     args.visualize = True
     # 可视化
     if args.visualize:
