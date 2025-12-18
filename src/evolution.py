@@ -23,6 +23,7 @@ class GeneticAlgorithm:
         self.best_individuals = []  # 每代最佳个体
         self.fitness_history = []   # 每代平均适应度
         self.best_fitness_history = []  # 每代最佳适应度
+        self.population_history = [] # 每代种群状态
     
     def record(self, ver = 0):
         # 计算适应度
@@ -36,6 +37,7 @@ class GeneticAlgorithm:
         self.best_fitness_history.append(best.fitness)
 
         if self.generation % 10 == 0:
+            self.population_history.append(self.population)
             print(f"第 {self.generation} 代: 平均适应度={self.population.get_average_fitness():.3f}, "
                   f"最佳适应度={best.fitness:.3f}")
 
@@ -125,7 +127,7 @@ class GeneticAlgorithm:
         
         print(f"进化完成，最终最佳适应度: {self.population.get_fittest().fitness:.3f}")
         
-        return self.best_individuals, self.fitness_history
+        return self.best_individuals, self.fitness_history,self.population_history
     
     def save_checkpoint(self, generation):
         """保存检查点"""

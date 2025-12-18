@@ -30,7 +30,7 @@ def get_interval_array(melody):
 def extract_all_melody_features(population):
     """Extract feature vectors of all melodies"""
     feature_list = []
-    for i, individual in enumerate(population.inviduals):
+    for i, individual in enumerate(population.individuals):
         melody = individual.melody
         melody_no_zero = [note for note in melody.notes if note > 0]# Remove rests
         average_pitch = np.mean(melody_no_zero)
@@ -47,12 +47,12 @@ def extract_all_melody_features(population):
                 change = 1 if dir1 != dir2 else 0
                 changes_count += change
         features = [
-            average_pitch,
-            std_pitch,
-            average_interval,
-            std_interval,
-            changes_count
-        ]# Normalization needed
+            average_pitch/20.,
+            std_pitch/8.0,
+            average_interval/10.0,
+            std_interval/6.0,
+            changes_count/10
+        ]# Normalization
         feature_list.append(features)
     return feature_list
 
@@ -86,10 +86,8 @@ def plot_population_diversity(population_history):
     # Here we can calculate the differences between melodies in each generation's population
     # Extract feature vectors of all melody encodings [average pitch, pitch standard deviation, average interval, interval standard deviation, contour change rate], calculate distance from mean
     avg_distances = []
-    for gen in range(0, 290, 10):
-        if gen > 290:
-            break
-        population = load_population(f"{current_time}/data/outputs/population/checkpoint_gen_{gen}.json")
+    for gen in range(0, 30):
+        population = population_history[gen]
         feature_list = extract_all_melody_features(population)
         X = np.array(feature_list)
         n = X.shape[0]
@@ -118,9 +116,6 @@ def plot_population_diversity(population_history):
     plt.grid(True, alpha=0.3)
     plt.legend()
     plt.tight_layout()
-    
-    # Save image
-    plt.savefig(f'{current_time}/data/outputs/diversity_progress.png', dpi=150)
     plt.show()
 
 def visualize_melody(melody, title=None):

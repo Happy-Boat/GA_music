@@ -7,7 +7,7 @@ import argparse
 import os
 import datetime
 from src.evolution import GeneticAlgorithm
-from src.visualization import plot_fitness_progress, visualize_melody, create_evolution_report
+from src.visualization import plot_fitness_progress, visualize_melody, create_evolution_report,plot_population_diversity
 import src.config as config
 
 from src.visualization import current_time
@@ -56,7 +56,7 @@ def main():
     
     # 运行进化
     print(f"开始进化（{config.GENERATIONS}代）...")
-    best_individuals, fitness_history = ga.run()
+    best_individuals, fitness_history,population_history = ga.run()
     
     # 保存结果
     print("保存结果...")
@@ -79,7 +79,7 @@ def main():
     # 可视化
     if args.visualize:
         plot_fitness_progress(fitness_history)
-    
+        plot_population_diversity(population_history)
         visualize_melody(best_melody, "最优旋律")
         
         # 比较初始和最终最佳旋律
