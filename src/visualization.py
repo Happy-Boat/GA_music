@@ -100,7 +100,7 @@ def plot_population_diversity(population_history):
         avg_distances.append(avg_distance)
 
     plt.figure(figsize=(10, 6))
-    generations = range(len(avg_distances))
+    generations = range(0,10*len(avg_distances),10)
     # Plot main curve
     plt.plot(generations, avg_distances, 'b-', linewidth=2, label='Population Diversity')
     
